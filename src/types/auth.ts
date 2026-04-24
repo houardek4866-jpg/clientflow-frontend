@@ -1,0 +1,46 @@
+export interface User {
+    id: number
+    username: string
+    email: string
+    first_name: string
+    last_name: string
+    is_active: boolean
+    created_at?: string
+    updated_at?: string
+}
+export interface LoginRequest {
+    username: string
+    password: string
+}
+export interface LoginResponse {
+    access: string
+    refresh: string
+    email: string
+    username: string
+    user?: User
+}
+export interface RegisterRequest {
+    username: string
+    email: string
+    password: string
+    password2: string
+    first_name?: string
+    last_name?: string
+}
+export interface RegisterResponse {
+    id: number
+    username: string
+    email: string
+    message: string
+}
+export interface AuthToken {
+    access: string
+    refresh: string
+}
+export interface AuthState {
+    isAuthenticated: boolean
+    user: User | null
+    token: string | null
+    loading: boolean
+    error: string | null
+}
