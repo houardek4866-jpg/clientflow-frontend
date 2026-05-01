@@ -34,7 +34,7 @@ DashboardPage.vue << 'EOF'
               <div class="w-24 bg-gray-200 rounded-full h-2">
                 <div
                   class="bg-primary-600 h-2 rounded-full"
-                  :style="{ width: ${project.progress_percentage}% }"
+                  :style="{ width: project.progress_percentage + '%' }"
                 ></div>
               </div>
               <p class="text-sm text-gray-500">{{ project.progress_percentage }}%</p>

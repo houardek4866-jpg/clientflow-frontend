@@ -1,10 +1,16 @@
 import api from './api'
 
+// Cette interface définit exactement ce que le Backend renvoie
 interface LoginResponse {
   access: string
   refresh: string
-  email: string
-  username: string
+  user: {
+    id: number
+    username: string
+    email: string
+    first_name: string
+    last_name: string
+  }
 }
 
 export class AuthService {
@@ -12,11 +18,13 @@ export class AuthService {
     const response = await api.login(username, password)
     const data = response.data
 
-    // Stocker les tokens
+    // On stocke tout dans le localStorage pour rester connecté après un refresh
     localStorage.setItem('access_token', data.access)
     localStorage.setItem('refresh_token', data.refresh)
-    localStorage.setItem('user_email', data.email)
-    localStorage.setItem('username', data.username)
+    
+    // On extrait les infos depuis l'objet 'user' imbriqué
+    localStorage.setItem('user_email', data.user.email)
+    localStorage.setItem('username', data.user.username)
 
     return data
   }
@@ -30,6 +38,8 @@ export class AuthService {
     localStorage.removeItem('refresh_token')
     localStorage.removeItem('user_email')
     localStorage.removeItem('username')
+    // On redirige vers le login proprement
+    window.location.href = '/login'
   }
 
   isAuthenticated(): boolean {
